@@ -3,13 +3,21 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Movie } from './src/Movie';
 import { Result } from './src/dataMovies';
 
+const url_base = "https://api.themoviedb.org/3/movie";
+const key = "c76ed6d50b96d2bfc0920abaeade0be3";
+const paginas = {
+  now_playing: "/now_playing",
+  popular: "/popular",
+  top_rated: "/top_rated",
+
+}
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     async function datos() {
       try {
-        const respuesta = await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=c76ed6d50b96d2bfc0920abaeade0be3");
+        const respuesta = await fetch(`${url_base}${paginas.now_playing}?api_key=${key}`);
         const data = await respuesta.json();
         const mappedMovies = data.results.map((item: Result) => movieMapper(item));
         setMovies(mappedMovies);
