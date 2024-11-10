@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Movie } from './src/Movie';
-import { Result } from './src/dataMovies';
+import { MoviesResponse, Result } from './src/dataMovies';
+import axios from "axios";
 
 const url_base = "https://api.themoviedb.org/3/movie";
 const key = "c76ed6d50b96d2bfc0920abaeade0be3";
@@ -12,8 +13,8 @@ const paginas = {
 
 }
 export default function App() {
+  /*
   const [movies, setMovies] = useState<Movie[]>([]);
-
   useEffect(() => {
     async function datos() {
       try {
@@ -27,7 +28,7 @@ export default function App() {
     }
     datos();
   }, []);
-
+*/
   const movieMapper = (item: Result): Movie => {
     return {
       id: item.id,
@@ -35,6 +36,15 @@ export default function App() {
     };
   };
 
+  const [movies, setMovies] = useState<Movie[]>([]);
+  useEffect(() => {
+    async function datosAxios() {
+      const response = await axios.get<MoviesResponse>(`${url_base}${paginas.now_playing}?api_key=${key}`);
+      const mappedMovies = await response.data.results.map((item: Result) => movieMapper(item));
+      setMovies(mappedMovies);
+    }
+    datosAxios();
+  }, []);
   return (
     <View style={styles.container}>
       <FlatList
