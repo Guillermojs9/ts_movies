@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Movie } from './src/Movie';
 import { MoviesResponse, Result } from './src/dataMovies';
 import axios from "axios";
+import { HttpFetch } from './src/HttpFetch';
 
 const url_base = "https://api.themoviedb.org/3/movie";
 const key = "c76ed6d50b96d2bfc0920abaeade0be3";
@@ -12,13 +13,15 @@ const paginas = {
   top_rated: "/top_rated",
 
 }
+
+const route = paginas.now_playing;
 export default function App() {
   /*
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
     async function datos() {
       try {
-        const respuesta = await fetch(`${url_base}${paginas.now_playing}?api_key=${key}`);
+        const respuesta = await fetch(`${url_base}${route}?api_key=${key}`);
         const data = await respuesta.json();
         const mappedMovies = data.results.map((item: Result) => movieMapper(item));
         setMovies(mappedMovies);
@@ -29,22 +32,44 @@ export default function App() {
     datos();
   }, []);
 */
+  /*
+    const [movies, setMovies] = useState<Movie[]>([]);
+    useEffect(() => {
+      async function datosAxios() {
+        try {
+          const response = await axios.get<MoviesResponse>(`${url_base}${route}?api_key=${key}`);
+          const mappedMovies = response.data.results.map((item: Result) => movieMapper(item));
+          setMovies(mappedMovies);
+        } catch (error) {
+          console.error("Error fetching movies with axios:", error);
+        }
+      }
+      datosAxios();
+    }, []);
+    */
   const movieMapper = (item: Result): Movie => {
     return {
       id: item.id,
       title: item.title,
     };
   };
-
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
-    async function datosAxios() {
-      const response = await axios.get<MoviesResponse>(`${url_base}${paginas.now_playing}?api_key=${key}`);
-      const mappedMovies = await response.data.results.map((item: Result) => movieMapper(item));
-      setMovies(mappedMovies);
+    const httpFetch = new HttpFetch({ url_base: url_base, key: key });
+
+    async function fetchData() {
+      try {
+        const data = await httpFetch.getFilms();
+        const mappedMovies = data.results.map((item: Result) => movieMapper(item));
+        setMovies(mappedMovies);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
     }
-    datosAxios();
+
+    fetchData();
   }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
