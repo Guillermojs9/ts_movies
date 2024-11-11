@@ -14,27 +14,13 @@ const routes = {
 }
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  /*
-  useEffect(() => {
-    const httpFetch = new HttpFetch({ url_base: url_base, key: key });
-
-    async function fetchData() {
-      try {
-        const data = await httpFetch.getFilms(routes.now_playing);
-        setMovies(data);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    }
-
-    fetchData();
-  }, []);
-  */
 
   useEffect(() => {
+    //const httpFetch = new HttpFetch({ url_base: url_base, key: key });
     const httpAxios = new HttpAxios({ url_base: url_base, key: key });
     async function fetchData() {
       try {
+        //const data = await httpFetch.getFilms(routes.now_playing);
         const data = await httpAxios.getFilms(routes.now_playing);
         setMovies(data);
       } catch (error) {
