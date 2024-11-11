@@ -7,31 +7,13 @@ import { HttpFetch } from './src/HttpFetch';
 
 const url_base = "https://api.themoviedb.org/3/movie";
 const key = "c76ed6d50b96d2bfc0920abaeade0be3";
-const paginas = {
+const routes = {
   now_playing: "/now_playing",
   popular: "/popular",
   top_rated: "/top_rated",
 
 }
-
-const route = paginas.now_playing;
 export default function App() {
-  /*
-  const [movies, setMovies] = useState<Movie[]>([]);
-  useEffect(() => {
-    async function datos() {
-      try {
-        const respuesta = await fetch(`${url_base}${route}?api_key=${key}`);
-        const data = await respuesta.json();
-        const mappedMovies = data.results.map((item: Result) => movieMapper(item));
-        setMovies(mappedMovies);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    }
-    datos();
-  }, []);
-*/
   /*
     const [movies, setMovies] = useState<Movie[]>([]);
     useEffect(() => {
@@ -47,21 +29,14 @@ export default function App() {
       datosAxios();
     }, []);
     */
-  const movieMapper = (item: Result): Movie => {
-    return {
-      id: item.id,
-      title: item.title,
-    };
-  };
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
     const httpFetch = new HttpFetch({ url_base: url_base, key: key });
 
     async function fetchData() {
       try {
-        const data = await httpFetch.getFilms();
-        const mappedMovies = data.results.map((item: Result) => movieMapper(item));
-        setMovies(mappedMovies);
+        const data = await httpFetch.getFilms(routes.now_playing);
+        setMovies(data);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
