@@ -1,4 +1,4 @@
-import { MoviesResponse, Result } from "./dataMovies";
+import { Result } from "./dataMovies";
 import { Http } from "./Http";
 import { Movie } from "./Movie";
 import { movieMapper } from "./MovieMapper";

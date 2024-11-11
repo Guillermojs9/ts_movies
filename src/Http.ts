@@ -1,4 +1,3 @@
-import { MoviesResponse } from "./dataMovies";
 import { Movie } from "./Movie";
 interface Config {
     url_base: string;
