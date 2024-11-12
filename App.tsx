@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, ScrollView } from 'react-native';
 import { Movie } from './src/Movie';
 //import { HttpFetch } from './src/HttpFetch';
 import { HttpAxios } from './src/HttpAxios';
@@ -31,17 +31,19 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={movies}
-        renderItem={({ item }) => <Image
-          style={styles.image}
-          source={{
-            uri: `https://image.tmdb.org/t/p/original${item.poster}`,
-          }}
-        />}
-        keyExtractor={(item) => "p" + item.id.toString()}
-      />
+    <View>
+      <ScrollView horizontal={true} style={styles.container2}>
+        {movies.map((item) => (
+          <Image
+            style={styles.image}
+            key={item.id.toString()}
+            source={{
+              uri: `https://image.tmdb.org/t/p/original${item.poster}`,
+            }}
+          />
+        ))}
+      </ScrollView>
+
     </View>
   );
 }
@@ -58,9 +60,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     color: '#333',
   },
+  container2: {
+    height: 400,
+  },
   image: {
-    width: 100, // Ancho de la imagen
-    height: 100, // Altura de la imagen
+    width: 270,
     marginTop: 20,
+    margin: 3,
   },
 });
