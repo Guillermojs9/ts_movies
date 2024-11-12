@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { Movie } from './src/Movie';
-import { HttpFetch } from './src/HttpFetch';
+//import { HttpFetch } from './src/HttpFetch';
 import { HttpAxios } from './src/HttpAxios';
 
 const url_base = "https://api.themoviedb.org/3/movie";
@@ -34,7 +34,12 @@ export default function App() {
     <View style={styles.container}>
       <FlatList
         data={movies}
-        renderItem={({ item }) => <Text style={styles.movieTitle}>{item.title}</Text>}
+        renderItem={({ item }) => <Image
+          style={styles.image}
+          source={{
+            uri: `https://image.tmdb.org/t/p/original${item.poster}`,
+          }}
+        />}
         keyExtractor={(item) => "p" + item.id.toString()}
       />
     </View>
@@ -52,5 +57,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 5,
     color: '#333',
+  },
+  image: {
+    width: 100, // Ancho de la imagen
+    height: 100, // Altura de la imagen
+    marginTop: 20,
   },
 });
