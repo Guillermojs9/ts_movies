@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, ScrollView } from 'react-native';
 import { Movie } from './src/Movie';
-//import { HttpFetch } from './src/HttpFetch';
-import { HttpAxios } from './src/HttpAxios';
+import { fetchMovies } from './src/fetchMovies';
 
 const url_base = "https://api.themoviedb.org/3/movie";
 const key = "c76ed6d50b96d2bfc0920abaeade0be3";
@@ -14,21 +13,13 @@ const routes = {
 }
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-
   useEffect(() => {
-    //const httpFetch = new HttpFetch({ url_base: url_base, key: key });
-    const httpAxios = new HttpAxios({ url_base: url_base, key: key });
-    async function fetchData() {
-      try {
-        //const data = await httpFetch.getFilms(routes.now_playing);
-        const data = await httpAxios.getFilms(routes.now_playing);
-        setMovies(data);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    }
-    fetchData();
+    (async function loadMovies() {
+      const data = await fetchMovies(routes.now_playing);
+      setMovies(data);
+    })();
   }, []);
+
 
   return (
     <View>
