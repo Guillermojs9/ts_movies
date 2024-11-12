@@ -22,10 +22,10 @@ export default function App() {
 
   return (
     <View>
-      <ScrollView horizontal={true} style={Styles.type.container2}>
+      <ScrollView horizontal={true} style={Styles.container2}>
         {movies.map((item) => (
           <Image
-            style={Styles.type.image}
+            style={Styles.image}
             key={item.id.toString()}
             source={{
               uri: `https://image.tmdb.org/t/p/original${item.poster}`,
@@ -33,7 +33,6 @@ export default function App() {
           />
         ))}
       </ScrollView>
-
     </View>
   );
 }
