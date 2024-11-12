@@ -16,6 +16,7 @@ export const Styles = StyleSheet.create({
     },
     image: {
         width: 270,
+        height: 405,
         marginTop: 20,
         margin: 3,
     },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView, Pressable } from 'react-native';
 import { Movie } from './src/Movie';
 import { fetchMovies } from './src/fetchMovies';
 import { Styles } from './src/Styles';
@@ -9,6 +9,10 @@ const routes = {
   popular: "/popular",
   top_rated: "/top_rated",
 
+}
+
+function onPressFunction(movie: Movie) {
+  console.log(`Id: ${movie.id}, Title: ${movie.title}`);
 }
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -24,13 +28,16 @@ export default function App() {
     <View>
       <ScrollView horizontal={true} style={Styles.container2}>
         {movies.map((item) => (
-          <Image
-            style={Styles.image}
+          <Pressable
             key={item.id.toString()}
-            source={{
-              uri: `https://image.tmdb.org/t/p/original${item.poster}`,
-            }}
-          />
+            onPress={() => onPressFunction(item)}>
+            <Image
+              style={Styles.image}
+              source={{
+                uri: `https://image.tmdb.org/t/p/original${item.poster}`,
+              }}
+            />
+          </Pressable>
         ))}
       </ScrollView>
     </View>
