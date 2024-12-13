@@ -1,8 +1,8 @@
 import React from "react";
 import { View, ActivityIndicator, FlatList, StyleSheet } from "react-native";
-import { useMovies } from "../useMovies";
-import { MovieListItem } from "../MovieListItem";
-import { Styles } from "../Styles";
+import { useMovies } from "../hooks/useMovies";
+import { MovieListItem } from "../components/MovieListItem";
+import { Styles } from "../styles/Styles";
 
 const routes = {
   now_playing: "/now_playing",

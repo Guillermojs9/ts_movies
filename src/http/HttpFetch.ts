@@ -1,7 +1,7 @@
-import { Result } from "./dataMovies";
+import { Result } from "../entities/dataMovies";
 import { Http } from "./Http";
-import { Movie } from "./Movie";
-import { movieMapper } from "./MovieMapper";
+import { Movie } from "../entities/Movie";
+import { movieMapper } from "../mapper/MovieMapper";
 
 export class HttpFetch extends Http {
 

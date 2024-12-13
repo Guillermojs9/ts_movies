@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, Image, StyleSheet} from "react-native";
-import { Movie } from "./Movie";
+import { Movie } from "../entities/Movie";
 
 interface MovieListItemProps {
     movie: Movie;

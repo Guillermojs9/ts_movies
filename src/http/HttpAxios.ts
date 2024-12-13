@@ -1,8 +1,8 @@
-import { MoviesResponse, Result } from "./dataMovies";
+import { MoviesResponse, Result } from "../entities/dataMovies";
 import { Http } from "./Http";
-import { Movie } from "./Movie";
+import { Movie } from "../entities/Movie";
 import axios from "axios";
-import { movieMapper } from "./MovieMapper";
+import { movieMapper } from "../mapper/MovieMapper";
 
 export class HttpAxios extends Http {
 

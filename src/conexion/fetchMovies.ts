@@ -1,5 +1,5 @@
-import { HttpAxios } from "./HttpAxios";
-import { Movie } from "./Movie";
+import { HttpAxios } from "../http/HttpAxios";
+import { Movie } from "../entities/Movie";
 
 const url_base = "https://api.themoviedb.org/3/movie";
 const key = "c76ed6d50b96d2bfc0920abaeade0be3";

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchMovies } from "./fetchMovies";
-import { Movie } from "./Movie";
+import { fetchMovies } from "../conexion/fetchMovies";
+import { Movie } from "../entities/Movie";
 
 
 export function useMovies(route: string) {
