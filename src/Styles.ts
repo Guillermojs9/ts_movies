@@ -2,9 +2,13 @@ import { StyleSheet } from 'react-native';
 export const Styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    containerV: {
+        width: 300,
+        aspectRatio: 3 / 4,
+        marginVertical: 15,
     },
     movieTitle: {
         fontSize: 18,
@@ -12,6 +16,9 @@ export const Styles = StyleSheet.create({
         color: '#333',
     },
     container2: {
+        height: 400,
+    },
+    container3: {
         height: 400,
     },
     image: {

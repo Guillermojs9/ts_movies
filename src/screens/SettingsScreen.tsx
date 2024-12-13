@@ -10,8 +10,8 @@ const routes = {
   upcoming: "/upcoming",
 };
 
-export function HomeScreen() {
-  const { movies, nextPage, loading } = useMovies(routes.now_playing);
+export function SettingsScreen() {
+  const { movies, nextPage, loading } = useMovies(routes.upcoming);
 
   const renderFooter = () => {
     if (!loading) return null;
@@ -24,7 +24,6 @@ export function HomeScreen() {
         data={movies}
         renderItem={({ item }) => <MovieListItem movie={item} />}
         keyExtractor={(item) => item.id.toString()}
-        horizontal={true}
         onEndReached={nextPage}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}

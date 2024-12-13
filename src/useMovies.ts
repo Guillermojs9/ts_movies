@@ -1,23 +1,32 @@
 import { useState, useEffect } from "react";
-import { Movie } from "./Movie";
 import { fetchMovies } from "./fetchMovies";
+import { Movie } from "./Movie";
+
 
 export function useMovies(route: string) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const loadMovies = async () => {
-            const data = await fetchMovies(route, page);
-            setMovies(data);
+            if (loading) return;
+            setLoading(true);
+            const data: Movie[] = await fetchMovies(route, page);
+            setMovies((prevMovies) => [...prevMovies, ...data]);
+            setLoading(false);
         };
 
         loadMovies();
     }, [page]);
 
     const nextPage = () => {
-        setPage((prev) => prev + 1);
+        if (!loading) {
+            setPage((prevPage) => prevPage + 1);
+        }
     };
 
-    return { movies, nextPage };
+    return { movies, nextPage, loading };
 }
+
+
